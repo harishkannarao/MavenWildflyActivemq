@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>SampleWebapp</module>
         <module>Activemq</module>
         <module>WildflyCargo</module>
         <module>Wildfly</module>
