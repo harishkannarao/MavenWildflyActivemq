@@ -16,7 +16,7 @@
 
     <properties>
         <wildfly.extract.dirName>wildfly-8.2.0.Final</wildfly.extract.dirName>
-        <wildfly.home>${project.build.directory}/${wildfly.extract.dirName}</wildfly.home>
+        <wildfly.home>${project.basedir}/server/${wildfly.extract.dirName}</wildfly.home>
         <wildfly.server>${wildfly.home}/standalone</wildfly.server>
         <wildfly.deployments>${wildfly.server}/deployments</wildfly.deployments>
         <wildfly.configuration>${wildfly.server}/configuration</wildfly.configuration>
@@ -33,35 +33,23 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>unpack-wildfly</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>unpack</goal>
+                            <goal>run</goal>
                         </goals>
                         <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.wildfly</groupId>
-                                    <artifactId>wildfly-dist</artifactId>
-                                    <version>8.2.0.Final</version>
-                                    <type>zip</type>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${project.build.directory}</outputDirectory>
-                                    <destFileName>${wildfly.extract.dirName}</destFileName>
-                                </artifactItem>
-                            </artifactItems>
+                            <target name="unpack-wildfly">
+                                <dependencyfilesets prefix="mydeps."/>
+                                <unzip dest="${project.basedir}/server" overwrite="false">
+                                    <fileset refid="mydeps.org.wildfly:wildfly-dist:zip" />
+                                </unzip>
+                            </target>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
                     <execution>
                         <id>delete-wildfly-standalone-configurations</id>
                         <phase>pre-integration-test</phase>
@@ -69,7 +57,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <target name="delete default wildfly configuration files">
+                            <target name="delete-wildfly-standalone-configurations">
                                 <delete>
                                     <fileset dir="${wildfly.configuration}" includes="standalone.xml" />
                                     <fileset dir="${wildfly.configuration}" includes="standalone-full.xml" />
@@ -86,8 +74,22 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <target name="copy wildfly configuration files">
+                            <target name="copy-custom-wildfly-standalone-full-configurations">
                                 <copy file="${project.basedir}/configuration/custom-cargo-wildfly-standalone-full.xml" tofile="${wildfly.configuration}/custom-cargo-wildfly-standalone-full.xml" />
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>clear-deployments</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target name="clear-deployments">
+                                <delete>
+                                    <fileset dir="${wildfly.deployments}" includes="**/*" />
+                                </delete>
                             </target>
                         </configuration>
                     </execution>
@@ -134,4 +136,13 @@
 
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-dist</artifactId>
+            <version>8.2.0.Final</version>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
 </project>
