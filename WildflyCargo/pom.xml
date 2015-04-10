@@ -26,7 +26,22 @@
         <wildfly1.port.offset>0</wildfly1.port.offset>
         <wildfly1.debug.param/>
         <cargo.goal>start</cargo.goal>
+        <skip.wildfly.unpack>false</skip.wildfly.unpack>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>check-wildfly-exists</id>
+            <activation>
+                <file>
+                    <exists>server/wildfly-8.2.0.Final</exists>
+                </file>
+            </activation>
+            <properties>
+                <skip.wildfly.unpack>true</skip.wildfly.unpack>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
 
@@ -42,6 +57,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip.wildfly.unpack}</skip>
                             <target name="unpack-wildfly">
                                 <dependencyfilesets prefix="mydeps."/>
                                 <unzip dest="${project.basedir}/server" overwrite="false">
