@@ -51,6 +51,19 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>clear-existing-wildfly</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.wildfly.unpack}</skip>
+                            <target name="clear-existing-wildfly">
+                                <delete dir="${wildfly.home}" />
+                            </target>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>unpack-wildfly</id>
                         <phase>pre-integration-test</phase>
                         <goals>
