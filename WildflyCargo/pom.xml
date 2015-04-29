@@ -24,7 +24,7 @@
         <wildfly1.http.port>8080</wildfly1.http.port>
         <wildfly1.management.port>9990</wildfly1.management.port>
         <wildfly1.port.offset>0</wildfly1.port.offset>
-        <wildfly1.debug.param/>
+        <wildfly1.debug.port>8787</wildfly1.debug.port>
         <cargo.goal>start</cargo.goal>
         <skip.wildfly.unpack>false</skip.wildfly.unpack>
     </properties>
@@ -168,7 +168,7 @@
                                 -Xmx512M
                                 -XX:MaxPermSize=128M
                                 -Djboss.socket.binding.port-offset=${wildfly1.port.offset}
-                                ${wildfly1.debug.param}
+                                -agentlib:jdwp=transport=dt_socket,address=${wildfly1.debug.port},server=y,suspend=n
                             </cargo.jvmargs>
                             <cargo.jboss.configuration>custom-cargo-wildfly-standalone-full</cargo.jboss.configuration>
                             <cargo.servlet.port>${wildfly1.http.port}</cargo.servlet.port>
