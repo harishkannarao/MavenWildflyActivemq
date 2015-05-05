@@ -61,6 +61,7 @@
                                     <destFileName>${wildfly.extract.dirName}</destFileName>
                                 </artifactItem>
                             </artifactItems>
+                            <skip>false</skip>
                         </configuration>
                     </execution>
                 </executions>
@@ -85,6 +86,7 @@
                                     <fileset dir="${wildfly.configuration}" includes="standalone-ha.xml" />
                                 </delete>
                             </target>
+                            <skip>false</skip>
                         </configuration>
                     </execution>
                     <execution>
@@ -97,6 +99,7 @@
                             <target name="copy wildfly configuration files">
                                 <copy file="${project.basedir}/configuration/custom-wildfly-standalone-full.xml" tofile="${wildfly.configuration}/custom-wildfly-standalone-full.xml" />
                             </target>
+                            <skip>false</skip>
                         </configuration>
                     </execution>
                 </executions>
@@ -126,6 +129,9 @@
                         <goals>
                             <goal>${wildfly.goal}</goal>
                         </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

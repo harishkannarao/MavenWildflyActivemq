@@ -86,6 +86,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <skip>false</skip>
                             <target name="delete-wildfly-standalone-configurations">
                                 <delete>
                                     <fileset dir="${wildfly.configuration}" includes="standalone.xml" />
@@ -103,6 +104,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <skip>false</skip>
                             <target name="copy-custom-wildfly-standalone-full-configurations">
                                 <copy file="${project.basedir}/configuration/custom-cargo-wildfly-standalone-full.xml" tofile="${wildfly.configuration}/custom-cargo-wildfly-standalone-full.xml" />
                             </target>
@@ -115,6 +117,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <skip>false</skip>
                             <target name="clear-deployments">
                                 <delete>
                                     <fileset dir="${wildfly.deployments}" includes="**/*" />
@@ -129,6 +132,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <skip>false</skip>
                             <target name="copy-sample-webapp-war">
                                 <dependencyfilesets prefix="mydeps."/>
                                 <copy tofile="${wildfly.deployments}/sample-webapp.war">
@@ -150,6 +154,9 @@
                         <goals>
                             <goal>${cargo.goal}</goal>
                         </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
                     </execution>
                  </executions>
                 <configuration>
