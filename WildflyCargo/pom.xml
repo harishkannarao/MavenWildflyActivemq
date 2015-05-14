@@ -25,6 +25,9 @@
         <wildfly1.management.port>9990</wildfly1.management.port>
         <wildfly1.port.offset>0</wildfly1.port.offset>
         <wildfly1.debug.port>8787</wildfly1.debug.port>
+        <wildfly1.bind.address>0.0.0.0</wildfly1.bind.address>
+        <wildfly1.bind.address.management>0.0.0.0</wildfly1.bind.address.management>
+        <wildfly1.bind.address.unsecure>0.0.0.0</wildfly1.bind.address.unsecure>
         <cargo.goal>start</cargo.goal>
         <skip.wildfly.unpack>false</skip.wildfly.unpack>
     </properties>
@@ -174,6 +177,9 @@
                                 -Xms64M
                                 -Xmx512M
                                 -XX:MaxPermSize=128M
+                                -Djboss.bind.address=${wildfly1.bind.address}
+                                -Djboss.bind.address.management=${wildfly1.bind.address.management}
+                                -Djboss.bind.address.unsecure=${wildfly1.bind.address.unsecure}
                                 -Djboss.socket.binding.port-offset=${wildfly1.port.offset}
                                 -agentlib:jdwp=transport=dt_socket,address=${wildfly1.debug.port},server=y,suspend=n
                             </cargo.jvmargs>
