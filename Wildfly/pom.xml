@@ -25,6 +25,9 @@
         <wildfly2.debug.param/>
         <wildfly2.port.offset>1000</wildfly2.port.offset>
         <wildfly2.port.management>10990</wildfly2.port.management>
+        <wildfly2.bind.address>0.0.0.0</wildfly2.bind.address>
+        <wildfly2.bind.address.management>0.0.0.0</wildfly2.bind.address.management>
+        <wildfly2.bind.address.unsecure>0.0.0.0</wildfly2.bind.address.unsecure>
         <wildfly.goal>start</wildfly.goal>
     </properties>
 
@@ -113,6 +116,9 @@
                     <serverConfig>custom-wildfly-standalone-full.xml</serverConfig>
                     <serverArgs>
                         <serverArg>-Djboss.socket.binding.port-offset=${wildfly2.port.offset}</serverArg>
+                        <serverArg>-b=${wildfly2.bind.address}</serverArg>
+                        <serverArg>-bmanagement=${wildfly2.bind.address.management}</serverArg>
+                        <serverArg>-bunsecure=${wildfly2.bind.address.unsecure}</serverArg>
                     </serverArgs>
                     <javaOpts>
                         <javaOpt>-Xms64M</javaOpt>
