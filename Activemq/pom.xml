@@ -14,6 +14,7 @@
 
     <properties>
         <activemq.fork>true</activemq.fork>
+        <activemq.port>61616</activemq.port>
     </properties>
 
     <build>
@@ -23,6 +24,7 @@
                 <artifactId>activemq-maven-plugin</artifactId>
                 <configuration>
                     <fork>${activemq.fork}</fork>
+                    <configUri>broker:(tcp://localhost:${activemq.port})?useJmx=false&amp;persistent=false</configUri>
                 </configuration>
                 <executions>
                     <execution>
