@@ -56,13 +56,6 @@
                     <stopKey>STOP-JETTY</stopKey>
                     <stopPort>${jetty.stop.port}</stopPort>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
-                    <systemProperties>
-                        <force>true</force>
-                        <systemProperty>
-                            <name>activemq.data</name>
-                            <value>${project.build.directory}</value>
-                        </systemProperty>
-                    </systemProperties>
                     <contextHandlers>
                         <contextHandler implementation="org.eclipse.jetty.webapp.WebAppContext">
                             <war>${project.build.directory}/fileserver.war</war>
