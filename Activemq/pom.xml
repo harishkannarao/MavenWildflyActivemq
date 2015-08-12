@@ -77,7 +77,6 @@
                         <id>start-jetty</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>stop</goal>
                             <goal>deploy-war</goal>
                         </goals>
                         <configuration>
